@@ -16,9 +16,8 @@ export default class LoginForm extends Component {
 
     handleChange(event) {
         const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const value = target.value;
         const id = target.id;
-        
         this.setState({
           [id]: value
         });
@@ -34,14 +33,15 @@ export default class LoginForm extends Component {
             email: this.state.email,
             password: this.state.password
         }
-        await fetch('http://localhost:8000/users/login', {
+        let data = await fetch('http://localhost:8000/users/login', {
             method: 'POST',
             body: JSON.stringify(formdata),
             headers: {
                 'Content-Type':'application/json',
-            }
-            
-        }).then(data => console.log(data.json()))
+            }    
+        })
+        const jsondata = await data.json()
+        sessionStorage.setItem('token',jsondata.token)
     }
 
  

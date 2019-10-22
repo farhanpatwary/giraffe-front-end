@@ -17,7 +17,6 @@ class NavbarComponent extends Component {
         };
     }
     componentDidMount(){
-    
     }
     render() {
 

@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container'
 import Alert from 'react-bootstrap/Alert'
 
 export default class SignUpForm extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -19,7 +20,7 @@ export default class SignUpForm extends Component {
 
     handleChange(event) {
         const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const value = target.value;
         const id = target.id;
         this.setState({
           [id]: value
@@ -43,17 +44,8 @@ export default class SignUpForm extends Component {
                 'Content-Type':'application/json',
             }    
         })
-        console.log(data)
-        if(data.ok === true){
-            this.setState({user_already_exists: false})
-            console.log(this.state.user_already_exists)
-        }
-        if(data.status === 400){
-            this.setState({user_already_exists: true})
-            console.log(data.json())
-        }
-        
-
+        const jsondata = await data.json()
+        sessionStorage.setItem('token',jsondata.token)
     }
 
     render() {
