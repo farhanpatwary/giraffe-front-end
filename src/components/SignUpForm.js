@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Alert from 'react-bootstrap/Alert'
-
+import Cookies from 'universal-cookie';
 export default class SignUpForm extends Component {
 
     constructor(props) {
@@ -45,7 +45,9 @@ export default class SignUpForm extends Component {
             }    
         })
         const jsondata = await data.json()
-        sessionStorage.setItem('token',jsondata.token)
+        const token = jsondata.token
+        const cookies = new Cookies();
+        cookies.set('token', token);
     }
 
     render() {
@@ -71,7 +73,7 @@ export default class SignUpForm extends Component {
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" placeholder="Password" onChange={this.handleChange}/>
                     </Form.Group>
-                    <Button variant="primary" type="submit">
+                    <Button variant="outline-primary" type="submit">
                         Sign Up
                     </Button>
                 </Form>
@@ -96,7 +98,7 @@ export default class SignUpForm extends Component {
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="Password" onChange={this.handleChange}/>
                         </Form.Group>
-                        <Button variant="primary" type="submit">
+                        <Button variant="outline-primary" type="submit">
                             Sign Up
                         </Button>
                     </Form>
