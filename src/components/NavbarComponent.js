@@ -16,23 +16,22 @@ class NavbarComponent extends Component {
           current_tab: 'Popular'
         };
     }
+    
     componentDidMount(){
     }
     render() {
-
-        const srcstyle = {
+        const searchBarStyle = {
             'marginLeft':'100px',
             'marginRight':'100px',
             'width':'600px',
             'float':'center'
         }
-        const xstyle = {
+        const dropdownStyle = {
             'marginLeft':'100px',
             'marginRight':'100px',
             'width':'100px',
             'float':'center'
         }
-        
         //navbar when not signed in shows log in and sign up options
         if(this.state.signed_in === false){
             return (
@@ -47,11 +46,13 @@ class NavbarComponent extends Component {
                         </NavDropdown>
                     </Nav>
                     <Form inline>
-                        <FormControl style={srcstyle} type="text" placeholder="Search Giraffe.." className="mr-sm-2" />
+                        <FormControl  type="text" style={searchBarStyle} placeholder="Search Giraffe.." className="input-large search-query" />
                         <Button variant="outline-primary">Search</Button>
                     </Form>
-                    <Nav className="mr-auto"></Nav>
-                    <NavDropdown style={xstyle} title="Options" id="basic-nav-dropdown">
+                    <Nav className="mr-auto">
+                        <Nav.Link href="/createpost">+</Nav.Link>
+                    </Nav>
+                    <NavDropdown title="Options" style={dropdownStyle} id="basic-nav-dropdown">
                         <NavDropdown.Item href="/login">Log in</NavDropdown.Item>
                         <NavDropdown.Item href="/signupform">Sign Up</NavDropdown.Item>
                         <NavDropdown.Divider />
@@ -59,7 +60,6 @@ class NavbarComponent extends Component {
                         <NavDropdown.Item href="#action/3.1">Help</NavDropdown.Item>
                     </NavDropdown>
                     </Navbar.Collapse>
-                    
                 </Navbar>
             )
         }
@@ -77,11 +77,11 @@ class NavbarComponent extends Component {
                         </NavDropdown>
                     </Nav>
                     <Form inline>
-                        <FormControl style={srcstyle} type="text" placeholder="Search Giraffe.." className="mr-sm-2" />
+                        <FormControl type="text" style={searchBarStyle} placeholder="Search Giraffe.." className="mr-sm-2" />
                         <Button variant="outline-primary">Search</Button>
                     </Form>
                     <Nav className="mr-auto"></Nav>
-                    <NavDropdown style={xstyle} title={this.state.current_user} id="basic-nav-dropdown">   
+                    <NavDropdown title={this.state.current_user} style={dropdownStyle} id="basic-nav-dropdown">   
                         <NavDropdown.Item href="#action/3.1">Log Out</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.2">My Profile</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.2">User Settings</NavDropdown.Item>
