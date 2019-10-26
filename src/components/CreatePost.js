@@ -8,7 +8,8 @@ class CreatePost extends Component {
         super(props);
         this.state = {
             title: '',
-            description: ''
+            description: '',
+            image: null
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,6 +22,7 @@ class CreatePost extends Component {
         this.setState({
           [id]: value
         });
+        console.log(this.state)
     }
 
     async handleSubmit(event) {
@@ -31,7 +33,8 @@ class CreatePost extends Component {
         }
         const formdata = {
             title: this.state.title,
-            description: this.state.description
+            description: this.state.description,
+            upload: this.state.image
         }
         const cookies = new Cookies();
         const authtoken = cookies.get('token');
@@ -49,6 +52,7 @@ class CreatePost extends Component {
     render() {
       return (
         <Container>
+            <br/>
             <Form onSubmit={this.handleSubmit}>
             <Form.Group controlId="title">
                 <Form.Label>Title</Form.Label>
@@ -60,8 +64,23 @@ class CreatePost extends Component {
                 <Form.Label>Description</Form.Label>
                 <Form.Control type="text" placeholder="Insert Description" onChange={this.handleChange}/>
             </Form.Group>
+            <Form.Group controlId="image">
+                <div className="input-group">
+                <div className="input-group-prepend">
+                    <span className="input-group-text" id="image">
+                    Upload
+                    </span>
+                </div>
+                <div className="custom-file">
+                    <input type="file" className="custom-file-input" id="image" aria-describedby="image" onChange={this.handleChange}/>
+                    <label className="custom-file-label" htmlFor="image">
+                    Choose file
+                    </label>
+                </div>
+                </div>
+            </Form.Group>
             
-            <Button variant="outline-primary" type="submit">
+            <Button variant="outline-primary" type="submit" block>
                 Post
             </Button>
             </Form>

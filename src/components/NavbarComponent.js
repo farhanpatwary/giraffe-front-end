@@ -50,7 +50,7 @@ class NavbarComponent extends Component {
                         <Button variant="outline-primary">Search</Button>
                     </Form>
                     <Nav className="mr-auto">
-                        <Nav.Link href="/createpost">+</Nav.Link>
+                        <Nav.Link href="/createpost">Create Post</Nav.Link>
                     </Nav>
                     <NavDropdown title="Options" style={dropdownStyle} id="basic-nav-dropdown">
                         <NavDropdown.Item href="/login">Log in</NavDropdown.Item>
