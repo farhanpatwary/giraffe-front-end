@@ -21,7 +21,12 @@ export class Posts extends Component {
     
     render() {
         const posts = this.state.posts.map((post) => 
-            <Post title={post.title} description={post.description} key={post.id}/>
+            <Post 
+            title={post.title} 
+            description={post.description} 
+            key={post._id} 
+            id={post._id}
+            name={post.ownername}/>
         )
         return (
             
