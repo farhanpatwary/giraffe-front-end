@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Cookies from 'universal-cookie';
 
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
@@ -11,13 +12,20 @@ class NavbarComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          current_user:'egirl',
+          current_user:'',
           signed_in: false,
           current_tab: 'Popular'
         };
     }
-    
     componentDidMount(){
+        const cookies = new Cookies();
+        var user = cookies.get('user')
+        if(user !== undefined){
+            this.setState({
+                signed_in: true,
+                current_user: user
+            })
+        }
     }
     searchBarStyle = {
         'marginLeft':'100px',
@@ -31,64 +39,11 @@ class NavbarComponent extends Component {
         'width':'100px',
         'float':'center'
     }
-    navSignedIn = (
-        <NavDropdown title="Options" style={this.dropdownStyle} id="basic-nav-dropdown">
-                            <NavDropdown.Item href="/login">Log in</NavDropdown.Item>
-                            <NavDropdown.Item href="/signupform">Sign Up</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Header>More Stuff</NavDropdown.Header>
-                            <NavDropdown.Item href="#action/3.1">Help</NavDropdown.Item>
-                        </NavDropdown>
-    )
-    render() {
-        
-        //navbar when not signed in shows log in and sign up options
-        if(this.state.signed_in === false){
+    dropdown = ()=> {
+        if(this.state.signed_in === true){
             return (
-                <Navbar bg="light" expand="lg">
-                <Navbar.Brand href="/">Giraffe</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <NavDropdown title={this.state.current_tab} id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.2">Popular</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.1">All</NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                    
-                    <Nav fill className="mr-auto">
-                        <Form inline>
-                            <FormControl  type="text"  placeholder="Search Giraffe.." className="input-large search-query" />
-                            <Button variant="outline-primary">Search</Button>
-                        </Form>
-                    </Nav>
-                    <Nav className="mr-auto">
-                        <Nav.Link href="/createpost">Create Post</Nav.Link>
-                        
-                    </Nav>
-                    
-                    </Navbar.Collapse>
-                </Navbar>
-            )
-        }
-        //navbar when signed in shows user options dropdown
-        else {
-            return (
-                <Navbar bg="light" expand="lg">
-                <Navbar.Brand href="#home">Giraffe</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <NavDropdown title={this.state.current_tab} id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.2">Popular</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.1">All</NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                    <Form inline>
-                        <FormControl type="text" style={this.searchBarStyle} placeholder="Search Giraffe.." className="mr-sm-2" />
-                        <Button variant="outline-primary">Search</Button>
-                    </Form>
-                    <Nav className="mr-auto"></Nav>
+                <Nav className="mr-auto">
+                    <Nav.Link href="/createpost">Create Post</Nav.Link> 
                     <NavDropdown title={this.state.current_user} style={this.dropdownStyle} id="basic-nav-dropdown">   
                         <NavDropdown.Item href="#action/3.1">Log Out</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.2">My Profile</NavDropdown.Item>
@@ -96,12 +51,49 @@ class NavbarComponent extends Component {
                         <NavDropdown.Divider />
                         <NavDropdown.Header>More Stuff</NavDropdown.Header>
                         <NavDropdown.Item href="#action/3.1">Help</NavDropdown.Item>
-                    </NavDropdown>
-                    </Navbar.Collapse>
-                </Navbar>
+                    </NavDropdown>           
+                </Nav>
             )
-        } 
+        }
+        else{
+            return (
+                <Nav className="mr-auto">
+                    <NavDropdown title="Options" style={this.dropdownStyle} id="basic-nav-dropdown">
+                        <NavDropdown.Item href="/login">Log in</NavDropdown.Item>
+                        <NavDropdown.Item href="/signupform">Sign Up</NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Header>More Stuff</NavDropdown.Header>
+                        <NavDropdown.Item href="#action/3.1">Help</NavDropdown.Item>
+                    </NavDropdown>     
+                </Nav>
+            )
+        }  
     }
+    render() {
+        return (
+            <Navbar bg="light" expand="lg">
+            <Navbar.Brand href="/">Giraffe</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="mr-auto">
+                    <NavDropdown title={this.state.current_tab} id="basic-nav-dropdown">
+                        <NavDropdown.Item href="#action/3.2">Popular</NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.1">All</NavDropdown.Item>
+                    </NavDropdown>
+                </Nav>
+                <Nav fill className="mr-auto">
+                    <Form inline>
+                        <FormControl  type="text"  placeholder="Search Giraffe.." className="input-large search-query" />
+                        <Button variant="outline-primary">Search</Button>
+                    </Form>
+                </Nav>
+                <Nav className="mr-auto">
+                    {this.dropdown()}
+                </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+            )
+        }    
 }
 
 export default NavbarComponent
