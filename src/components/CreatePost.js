@@ -3,6 +3,8 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Cookies from 'universal-cookie';
+
+const axios = require('axios');
 class CreatePost extends Component {
     constructor(props) {
         super(props);
@@ -19,10 +21,15 @@ class CreatePost extends Component {
         const target = event.target;
         const value = target.value;
         const id = target.id;
+        if(target.files){
+            this.setState({
+                image: target.files[0]
+            });
+            return
+        }
         this.setState({
           [id]: value
         });
-        console.log(this.state)
     }
 
     async handleSubmit(event) {
@@ -31,22 +38,27 @@ class CreatePost extends Component {
             alert('Please enter a title and description')
             return
         }
-        const formdata = {
-            title: this.state.title,
-            description: this.state.description,
-            upload: this.state.image
-        }
+
         const cookies = new Cookies();
         const authtoken = cookies.get('token');
-        let data = await fetch('http://localhost:8000/posts', {
-            method: 'POST',
-            body: JSON.stringify(formdata),
+
+        const form = new FormData();
+        form.append('upload',this.state.image)
+        form.append('title',this.state.title)
+        form.append('description',this.state.description)
+        const config = {
             headers: {
-                'Content-Type':'application/json',
+                'content-type': 'multipart/form-data',
                 'Authorization': `Bearer ${authtoken}`
-            }    
+            }
+        }
+        axios.post('http://localhost:8000/posts', form, config).catch((e)=> {
+            if(e.response){
+                console.log(JSON.stringify(e));
+
+            }
         })
-        console.log(data)
+        
     }
     
     render() {
