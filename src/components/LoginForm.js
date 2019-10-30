@@ -3,14 +3,14 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Cookies from 'universal-cookie';
-import { Redirect } from 'react-router-dom'
 
 export default class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            correctCredentials: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,13 +21,12 @@ export default class LoginForm extends Component {
         const value = target.value;
         const id = target.id;
         this.setState({
-          [id]: value
+            [id]: value
         });
-        console.log(this.state)
     }
-    async handleSubmit(event) {
+    handleSubmit(event) {
         event.preventDefault();
-        if(this.state.email === '' || this.state.password === ''){
+        if (this.state.email === '' || this.state.password === '') {
             alert('Please enter email and password')
             return
         }
@@ -35,30 +34,38 @@ export default class LoginForm extends Component {
             email: this.state.email,
             password: this.state.password
         }
-        let data = await fetch('http://localhost:8000/users/login', {
-            method: 'POST',
-            body: JSON.stringify(formdata),
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type':'application/json'
-            }    
-        })
-        
-        const jsondata = await data.json()
-        //sessionStorage.setItem('token',jsondata.token)
-        const token = jsondata.token
-        const cookies = new Cookies();
-        cookies.set('token', token);
-        cookies.set('signedin', true);
-        this.renderRedirect()
+        fetch('http://localhost:8000/users/login', {
+                method: 'POST',
+                body: JSON.stringify(formdata),
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((data) => {
+                if (data.ok === true) {
+                    this.setState({
+                        correctCredentials: true
+                    })
+                }
+                data.json()
+                    .then((jsondata) => {
+                        const cookies = new Cookies();
+                        cookies.set('token', jsondata.token);
+                        cookies.set('user', jsondata.user.name);
+                        if (this.state.correctCredentials === true) {
+                            return this.renderRedirect()
+                        }
+                    })
+                    .catch((e) => (alert('Incorrect Credentials. Please enter correct email and password.')))
+            })
+            .catch((e) => alert('Oops! Something Wrong happened there. Please try again later'))
     }
-    renderRedirect = () => {
 
-        return <Redirect to='/' />
-        
+    renderRedirect = () => {
+        this.props.history.push('/')
     }
     
- 
     render() {
         return (   
             <Container>
