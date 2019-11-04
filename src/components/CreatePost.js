@@ -32,7 +32,7 @@ class CreatePost extends Component {
         });
     }
 
-    async handleSubmit(event) {
+    handleSubmit(event) {
         event.preventDefault();
         if(this.state.title === '' || this.state.description === ''){
             alert('Please enter a title and description')
@@ -55,10 +55,8 @@ class CreatePost extends Component {
         axios.post('http://localhost:8000/posts', form, config).catch((e)=> {
             if(e.response){
                 console.log(JSON.stringify(e));
-
             }
-        })
-        
+        }).then(this.props.history.push('/'))
     }
     
     render() {

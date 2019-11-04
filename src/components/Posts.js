@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Container from 'react-bootstrap/Container'
-
 import Post from './Post'
 
 export class Posts extends Component {
@@ -10,16 +9,13 @@ export class Posts extends Component {
           posts: []
         };
     }
-    async componentDidMount() {
-        const url = 'http://localhost:8000/posts';
-        const resp = await fetch(url)
-        const data = await resp.json()
-        this.setState({
-            posts: data
-        })
-    }
-    
     render() {
+        const url = 'http://localhost:8000/posts';
+        fetch(url)
+        .then((data)=>(data.json()))
+        .then((data) => this.setState({
+            posts: data
+        }))
         const posts = this.state.posts.map((post) => 
             <Post 
             title={post.title} 
@@ -29,7 +25,6 @@ export class Posts extends Component {
             name={post.ownername}/>
         )
         return (
-            
             <Container>
                 <br/>
                 {posts}

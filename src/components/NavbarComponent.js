@@ -11,21 +11,13 @@ import Button from 'react-bootstrap/Button'
 class NavbarComponent extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-          current_user:'',
-          signed_in: false,
-          current_tab: 'Popular'
-        };
+        this.logOut = this.logOut.bind(this)
     }
-    componentDidMount(){
+    logOut(){
         const cookies = new Cookies();
-        var user = cookies.get('user')
-        if(user !== undefined){
-            this.setState({
-                signed_in: true,
-                current_user: user
-            })
-        }
+        cookies.remove('user');
+        cookies.remove('token');
+        this.props.signOut()
     }
     searchBarStyle = {
         'marginLeft':'100px',
@@ -39,13 +31,14 @@ class NavbarComponent extends Component {
         'width':'100px',
         'float':'center'
     }
+
     dropdown = ()=> {
-        if(this.state.signed_in === true){
+        if(this.props.signed_in === true){
             return (
                 <Nav className="mr-auto">
                     <Nav.Link href="/createpost">Create Post</Nav.Link> 
-                    <NavDropdown title={this.state.current_user} style={this.dropdownStyle} id="basic-nav-dropdown">   
-                        <NavDropdown.Item href="#action/3.1">Log Out</NavDropdown.Item>
+                    <NavDropdown title={this.props.current_user} style={this.dropdownStyle} id="basic-nav-dropdown">   
+                        <NavDropdown.Item onClick={this.logOut}>Log Out</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.2">My Profile</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.2">User Settings</NavDropdown.Item>
                         <NavDropdown.Divider />
@@ -76,7 +69,7 @@ class NavbarComponent extends Component {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    <NavDropdown title={this.state.current_tab} id="basic-nav-dropdown">
+                    <NavDropdown title={this.props.current_tab} id="basic-nav-dropdown">
                         <NavDropdown.Item href="#action/3.2">Popular</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.1">All</NavDropdown.Item>
                     </NavDropdown>
