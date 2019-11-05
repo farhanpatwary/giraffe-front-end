@@ -5,13 +5,16 @@ import Accordion from 'react-bootstrap/Accordion'
 
 const Post = (props) => {
     var imgurl = `http://localhost:8000/posts/${props.id}/image`
-    
+    const time = props.dateCreated.slice(11,16)
+    const date = props.dateCreated.slice(0,10)
+
     return (
         <Accordion>
             <Card>
                 <Accordion.Toggle as={Card.Header} variant="link" eventKey="1">
                     <Card.Title>{props.title}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted"><a href="/">By: {props.name}</a></Card.Subtitle>
+                    <Card.Subtitle className="mb-2 text-muted">Created at: {time} on {date}</Card.Subtitle>    
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="1">
                     <Card.Body>
