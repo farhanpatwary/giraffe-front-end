@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
-import Alert from 'react-bootstrap/Alert'
 import Cookies from 'universal-cookie';
 export default class SignUpForm extends Component {
 
@@ -12,7 +11,6 @@ export default class SignUpForm extends Component {
             name: '',
             email: '',
             password: '',
-            user_already_exists: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -51,15 +49,10 @@ export default class SignUpForm extends Component {
     }
 
     render() {
-        if(this.state.user_already_exists === true){
-            return(
-                <Container>
+        return (
+            <Container>
                 <br/>
-                
                 <h3>Sign Up to Giraffe</h3>
-                <Alert variant="danger">
-                    This user already exists. Please try a different email address.
-                </Alert>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group controlId="name">
                         <Form.Label>Name</Form.Label>
@@ -73,37 +66,12 @@ export default class SignUpForm extends Component {
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" placeholder="Password" onChange={this.handleChange}/>
                     </Form.Group>
+                    <p>Already Registered? <a href="/login">Sign In here.</a></p>
                     <Button variant="outline-primary" type="submit">
                         Sign Up
                     </Button>
                 </Form>
-            </Container> 
-            ) 
-        }
-        else{
-            return (
-                <Container>
-                    <br/>
-                    <h3>Sign Up to Giraffe</h3>
-                    <Form onSubmit={this.handleSubmit}>
-                        <Form.Group controlId="name">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control type="name" placeholder="Name" onChange={this.handleChange} />
-                        </Form.Group>
-                        <Form.Group controlId="email">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" onChange={this.handleChange} />
-                        </Form.Group>
-                        <Form.Group controlId="password">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" onChange={this.handleChange}/>
-                        </Form.Group>
-                        <Button variant="outline-primary" type="submit">
-                            Sign Up
-                        </Button>
-                    </Form>
-                </Container>
-            )
-        }
+            </Container>
+        )
     }
 }
