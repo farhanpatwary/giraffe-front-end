@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Cookies from 'universal-cookie';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 export default class LoginForm extends Component {
     constructor(props) {
         super(props);
@@ -87,6 +87,7 @@ export default class LoginForm extends Component {
                                 Password needs to be at least 7 charaters.
                             </Form.Text>
                         </Form.Group>
+                        <p>Don't have an account? <a href="/signupform">Register here.</a></p>
                         <Button variant="outline-primary" type="submit">
                             Log in
                         </Button>
