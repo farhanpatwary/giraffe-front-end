@@ -44,6 +44,7 @@ class NavbarComponent extends Component {
                         <NavDropdown.Divider />
                         <NavDropdown.Header>More Stuff</NavDropdown.Header>
                         <NavDropdown.Item href="#action/3.1">Help</NavDropdown.Item>
+                        <NavDropdown.Item href="/about">About</NavDropdown.Item>
                     </NavDropdown>           
                 </Nav>
             )
@@ -57,6 +58,7 @@ class NavbarComponent extends Component {
                         <NavDropdown.Divider />
                         <NavDropdown.Header>More Stuff</NavDropdown.Header>
                         <NavDropdown.Item href="#action/3.1">Help</NavDropdown.Item>
+                        <NavDropdown.Item href="/about">About</NavDropdown.Item>
                     </NavDropdown>     
                 </Nav>
             )
