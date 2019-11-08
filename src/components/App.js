@@ -9,6 +9,7 @@ import About from './About'
 import SignUpForm from './SignUpForm'
 import LoginForm from './LoginForm'
 import CreatePost from './CreatePost'
+import UserPage from './UserPage'
 
 class App extends Component {
   constructor(){
@@ -52,7 +53,12 @@ class App extends Component {
             <Posts {...props}/>
           )}/>
           <Route path='/about' component={About}/>
-          <Route path='/signupform' component={SignUpForm} />
+          <Route path='/signupform' render={(props) => (
+            <SignUpForm {...props} 
+            signIn={this.signIn.bind(this)}
+            signed_in={this.state.signed_in}
+            />
+          )}/>
           <Route path='/login' render={(props) => (
             <LoginForm {...props} 
             signIn={this.signIn.bind(this)}
@@ -60,6 +66,7 @@ class App extends Component {
             />
           )}/>
           <Route path='/createpost' component={CreatePost} />
+          <Route path='/users/:id' component={UserPage}/>
         </div>
       </BrowserRouter>
     )
