@@ -84,7 +84,7 @@ export default class LoginForm extends Component {
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="Password" onChange={this.handleChange}/>
                             <Form.Text className="text-muted">
-                                Password needs to be at least 7 charaters.
+                                Enter your password.
                             </Form.Text>
                         </Form.Group>
                         <p>Don't have an account? <a href="/signupform">Register here.</a></p>
