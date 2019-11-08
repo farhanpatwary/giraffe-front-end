@@ -58,7 +58,6 @@ class CreatePost extends Component {
                 console.log(JSON.stringify(e));
             }
         }).then((resp)=>{
-            console.log(resp)
             this.props.history.push('/')
         })
     }
