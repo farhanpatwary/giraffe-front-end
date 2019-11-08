@@ -76,7 +76,8 @@ export class Posts extends Component {
                 description={post.description} 
                 key={post._id} 
                 id={post._id}
-                name={post.ownername}
+                owner_id={post.owner}
+                owner_name={post.ownername}
                 dateCreated={post.createdAt}
                 />
             )
