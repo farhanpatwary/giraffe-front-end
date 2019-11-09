@@ -39,8 +39,7 @@ class NavbarComponent extends Component {
                     <Nav.Link href="/createpost">Create Post</Nav.Link> 
                     <NavDropdown title={this.props.current_user} style={this.dropdownStyle} id="basic-nav-dropdown">   
                         <NavDropdown.Item onClick={this.logOut}>Log Out</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">My Profile</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">User Settings</NavDropdown.Item>
+                        <NavDropdown.Item href="/settings">User Settings</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Header>More Stuff</NavDropdown.Header>
                         <NavDropdown.Item href="#action/3.1">Help</NavDropdown.Item>

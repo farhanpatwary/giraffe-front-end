@@ -10,6 +10,7 @@ import SignUpForm from './SignUpForm'
 import LoginForm from './LoginForm'
 import CreatePost from './CreatePost'
 import UserPage from './UserPage'
+import UserSettings from './UserSettings'
 
 class App extends Component {
   constructor(){
@@ -67,6 +68,11 @@ class App extends Component {
           )}/>
           <Route path='/createpost' component={CreatePost} />
           <Route path='/users/:id' component={UserPage}/>
+          <Route path='/settings' render={(props)=> (
+            <UserSettings {...props}
+            signOut={this.signOut.bind(this)}
+            />
+          )}/>
         </div>
       </BrowserRouter>
     )
