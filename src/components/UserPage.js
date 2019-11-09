@@ -17,6 +17,7 @@ export default class UserPage extends Component {
         }
         this.clickHandler = this.clickHandler.bind(this)
     }
+
     componentDidMount(){
         const user_url = `http://localhost:8000/users/${this.state.id}`
         fetch(user_url, {
@@ -42,8 +43,27 @@ export default class UserPage extends Component {
         .then((jsondata)=>this.setState({
             posts: jsondata.posts
         }))
-
     }
+    
+    clickHandler(e){
+        e.preventDefault()
+        this.current_page = this.current_page + 5
+        const url = `http://localhost:8000/users/${this.state.id}/posts?limit=5&skip=${this.current_page}&sortBy=createdAt:desc`
+        fetch(url)
+        .then((data)=>(data.json()))
+        .then((data) => {
+            if(data.posts.length === 0){
+                this.setState({
+                    noMorePosts: true
+                })
+            }
+            let newposts = this.state.posts.concat(data.posts)
+            this.setState({
+                posts: newposts
+            })
+        })
+    }
+
     posts(){
         const posts = this.state.posts.map((post) => 
                 <Post 
@@ -64,25 +84,7 @@ export default class UserPage extends Component {
             </div>
         )
     }
-    clickHandler(e){
-        e.preventDefault()
-        this.current_page = this.current_page + 5
-        const url = `http://localhost:8000/posts?limit=5&skip=${this.current_page}&sortBy=createdAt:desc`
-        fetch(url)
-        .then((data)=>(data.json()))
-        .then((data) => {
-            if(data.length === 0){
-                this.setState({
-                    noMorePosts: true
-                })
-            }
-            let newposts = this.state.posts.concat(data)
-            this.setState({
-                posts: newposts,
-                loaded: true
-            })
-        })
-    }
+
     button(){
         if(this.state.noMorePosts === false){
             return (
