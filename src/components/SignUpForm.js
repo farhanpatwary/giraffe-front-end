@@ -36,7 +36,7 @@ export default class SignUpForm extends Component {
             email: this.state.email,
             password: this.state.password
         }
-        fetch('http://localhost:8000/users', {
+        fetch('/users', {
             method: 'POST',
             body: JSON.stringify(formdata),
             headers: {

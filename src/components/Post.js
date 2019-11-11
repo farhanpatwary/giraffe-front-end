@@ -4,7 +4,7 @@ import Image from 'react-bootstrap/Image'
 import Accordion from 'react-bootstrap/Accordion'
 
 const Post = (props) => {
-    var imgurl = `http://localhost:8000/posts/${props.id}/image`
+    var imgurl = `/posts/${props.id}/image`
     const time = props.dateCreated.slice(11,16)
     const date = props.dateCreated.slice(0,10)
     const user_page_path = `/users/${props.owner_id}`

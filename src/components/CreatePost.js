@@ -53,7 +53,7 @@ class CreatePost extends Component {
                 'Authorization': `Bearer ${authtoken}`
             }
         }
-        axios.post('http://localhost:8000/posts', form, config).catch((e)=> {
+        axios.post('/posts', form, config).catch((e)=> {
             if(e.response){
                 console.log(JSON.stringify(e));
             }

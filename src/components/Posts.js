@@ -17,7 +17,7 @@ export class Posts extends Component {
         this.clickHandler = this.clickHandler.bind(this)
     }
     componentDidMount(){
-        const url = `http://localhost:8000/posts?limit=5&skip=0&sortBy=createdAt:desc`
+        const url = `/posts?limit=5&skip=0&sortBy=createdAt:desc`
         fetch(url)
         .then((data)=>(data.json()))
         .then((data) => this.setState({
@@ -29,7 +29,7 @@ export class Posts extends Component {
     clickHandler(e){
         e.preventDefault()
         this.current_page = this.current_page + 5
-        const url = `http://localhost:8000/posts?limit=5&skip=${this.current_page}&sortBy=createdAt:desc`
+        const url = `/posts?limit=5&skip=${this.current_page}&sortBy=createdAt:desc`
         fetch(url)
         .then((data)=>(data.json()))
         .then((data) => {

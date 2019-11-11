@@ -42,7 +42,7 @@ export default class UserSettings extends Component {
             const formdata = {
                 password: this.state.password
             }
-            fetch('http://localhost:8000/users/me',{
+            fetch('/users/me',{
                 method: 'PATCH',
                 body: JSON.stringify(formdata),
                 credentials: 'same-origin',
@@ -66,7 +66,7 @@ export default class UserSettings extends Component {
             this.props.history.push('/')
         } else {
             
-            fetch('http://localhost:8000/users/me',{
+            fetch('/users/me',{
                 method: 'DELETE',
                 credentials: 'same-origin',
                 headers: {

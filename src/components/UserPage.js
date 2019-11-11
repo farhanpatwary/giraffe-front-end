@@ -19,7 +19,7 @@ export default class UserPage extends Component {
     }
 
     componentDidMount(){
-        const user_url = `http://localhost:8000/users/${this.state.id}`
+        const user_url = `/users/${this.state.id}`
         fetch(user_url, {
             method: 'GET',
             headers: {
@@ -32,7 +32,7 @@ export default class UserPage extends Component {
                 user: jsondata.user.name
             })
         })
-        const posts_url = `http://localhost:8000/users/${this.state.id}/posts?limit=5&skip=0&sortBy=createdAt:desc`
+        const posts_url = `/users/${this.state.id}/posts?limit=5&skip=0&sortBy=createdAt:desc`
         fetch(posts_url,{
             method: 'GET',
             headers: {
@@ -48,7 +48,7 @@ export default class UserPage extends Component {
     clickHandler(e){
         e.preventDefault()
         this.current_page = this.current_page + 5
-        const url = `http://localhost:8000/users/${this.state.id}/posts?limit=5&skip=${this.current_page}&sortBy=createdAt:desc`
+        const url = `/users/${this.state.id}/posts?limit=5&skip=${this.current_page}&sortBy=createdAt:desc`
         fetch(url)
         .then((data)=>(data.json()))
         .then((data) => {
