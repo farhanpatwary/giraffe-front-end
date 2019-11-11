@@ -42,7 +42,7 @@ export default class UserSettings extends Component {
             const formdata = {
                 password: this.state.password
             }
-            fetch('/users/me',{
+            fetch('https://serene-escarpment-90033.herokuapp.com/users/users/me',{
                 method: 'PATCH',
                 body: JSON.stringify(formdata),
                 credentials: 'same-origin',
