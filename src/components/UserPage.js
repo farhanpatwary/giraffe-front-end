@@ -19,7 +19,7 @@ export default class UserPage extends Component {
     }
 
     componentDidMount(){
-        const user_url = `/users/${this.state.id}`
+        const user_url = `https://serene-escarpment-90033.herokuapp.com/users/${this.state.id}`
         fetch(user_url, {
             method: 'GET',
             headers: {
