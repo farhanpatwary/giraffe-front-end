@@ -79,6 +79,7 @@ export default class UserSettings extends Component {
                     alert('An error has occured. Please try again later.')
                 } else{
                     this.logOut()
+                    this.props.history.push('/')
                 }
             })
         }
