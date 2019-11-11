@@ -48,7 +48,7 @@ export default class UserPage extends Component {
     clickHandler(e){
         e.preventDefault()
         this.current_page = this.current_page + 5
-        const url = `/users/${this.state.id}/posts?limit=5&skip=${this.current_page}&sortBy=createdAt:desc`
+        const url = `https://serene-escarpment-90033.herokuapp.com/users/${this.state.id}/posts?limit=5&skip=${this.current_page}&sortBy=createdAt:desc`
         fetch(url)
         .then((data)=>(data.json()))
         .then((data) => {

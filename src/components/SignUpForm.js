@@ -36,7 +36,7 @@ export default class SignUpForm extends Component {
             email: this.state.email,
             password: this.state.password
         }
-        fetch('/users', {
+        fetch('https://serene-escarpment-90033.herokuapp.com/users', {
             method: 'POST',
             body: JSON.stringify(formdata),
             headers: {

@@ -53,7 +53,7 @@ class CreatePost extends Component {
                 'Authorization': `Bearer ${authtoken}`
             }
         }
-        axios.post('/posts', form, config).catch((e)=> {
+        axios.post('https://serene-escarpment-90033.herokuapp.com/posts', form, config).catch((e)=> {
             if(e.response){
                 console.log(JSON.stringify(e));
             }

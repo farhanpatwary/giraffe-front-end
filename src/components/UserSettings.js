@@ -66,7 +66,7 @@ export default class UserSettings extends Component {
             this.props.history.push('/')
         } else {
             
-            fetch('/users/me',{
+            fetch('https://serene-escarpment-90033.herokuapp.com/users/me',{
                 method: 'DELETE',
                 credentials: 'same-origin',
                 headers: {

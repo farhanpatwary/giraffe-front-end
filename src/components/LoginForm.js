@@ -34,7 +34,7 @@ export default class LoginForm extends Component {
             email: this.state.email,
             password: this.state.password
         }
-        fetch('/users/login', {
+        fetch('https://serene-escarpment-90033.herokuapp.com/users/login', {
                 method: 'POST',
                 body: JSON.stringify(formdata),
                 credentials: 'same-origin',
