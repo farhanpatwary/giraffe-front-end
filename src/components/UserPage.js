@@ -20,6 +20,7 @@ export default class UserPage extends Component {
 
     componentDidMount(){
         const user_url = `https://serene-escarpment-90033.herokuapp.com/users/${this.state.id}`
+        console.log(user_url)
         fetch(user_url, {
             method: 'GET',
             headers: {
@@ -32,7 +33,7 @@ export default class UserPage extends Component {
                 user: jsondata.user.name
             })
         })
-        const posts_url = `https://serene-escarpment-90033.herokuapp.com/users/users/${this.state.id}/posts?limit=5&skip=0&sortBy=createdAt:desc`
+        const posts_url = `https://serene-escarpment-90033.herokuapp.com/users/${this.state.id}/posts?limit=5&skip=0&sortBy=createdAt:desc`
         fetch(posts_url,{
             method: 'GET',
             headers: {
