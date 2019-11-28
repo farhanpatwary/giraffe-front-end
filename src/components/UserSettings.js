@@ -42,7 +42,7 @@ export default class UserSettings extends Component {
             const formdata = {
                 password: this.state.password
             }
-            fetch('https://serene-escarpment-90033.herokuapp.com/users/users/me',{
+            fetch('https://serene-escarpment-90033.herokuapp.com/users/me',{
                 method: 'PATCH',
                 body: JSON.stringify(formdata),
                 credentials: 'same-origin',
@@ -53,6 +53,7 @@ export default class UserSettings extends Component {
             })
             .then(data => {
                 if(data.ok !== true){
+                    console.log(data)
                     alert('Your Password needs to be 7 characters or longer')
                 }
             })
