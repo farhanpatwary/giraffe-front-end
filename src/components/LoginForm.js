@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
+import Alert from 'react-bootstrap/Alert'
 import Cookies from 'universal-cookie';
 import { Redirect } from 'react-router-dom';
 export default class LoginForm extends Component {
@@ -11,6 +12,7 @@ export default class LoginForm extends Component {
             email: '',
             password: '',
             correctCredentials: false,
+            error: ''
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,7 +29,9 @@ export default class LoginForm extends Component {
     handleSubmit(event) {
         event.preventDefault();
         if (this.state.email === '' || this.state.password === '') {
-            alert('Please enter email and password')
+            this.setState({
+                error: 'Please enter your email and password.'
+            })
             return
         }
         const formdata = {
@@ -47,8 +51,7 @@ export default class LoginForm extends Component {
                     this.setState({
                         correctCredentials: true
                     })
-                }
-                data.json()
+                    data.json()
                     .then((jsondata) => {
                         const cookies = new Cookies();
                         cookies.set('token', jsondata.token);
@@ -59,10 +62,28 @@ export default class LoginForm extends Component {
                         }
                     })
                     .catch((e) => (alert(e)))
+                } else if(data.status === 400){
+                    this.setState({
+                        error: 'Wrong Credentials entered. Please enter correct email and password.'
+                    })
+                } else if(data.status === 404){
+                    this.setState({
+                        error: 'User does not exist. Please sign up or use a different email address to continue.'
+                    })
+                }
+                
             })
-            .catch((e) => alert(e))
+            .catch((e) => console.log(e))
     }
-    
+    errorAlert = ()=>{
+        if(this.state.error === ''){
+            return
+        } else {
+            return (
+                <Alert variant="danger">{this.state.error}</Alert>
+            )
+        }
+    }
     render() {
         if(this.props.signed_in === true){
             return <Redirect to='/' />
@@ -92,6 +113,8 @@ export default class LoginForm extends Component {
                             Log in
                         </Button>
                     </Form>
+                    <br/>
+                    {this.errorAlert()}
                 </Container>
             )
         }
