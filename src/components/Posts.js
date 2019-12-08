@@ -19,11 +19,15 @@ export class Posts extends Component {
     componentDidMount(){
         const url = `https://serene-escarpment-90033.herokuapp.com/posts?limit=5&skip=0&sortBy=createdAt:desc`
         fetch(url)
-        .then((data)=>(data.json()))
-        .then((data) => this.setState({
-            posts: data,
-            loaded: true
-        }))
+        .then((data)=> {
+            if(data.ok === true){
+                data.json()
+                .then((data) => this.setState({
+                        posts: data,
+                        loaded: true
+                    }))
+            }
+        })
     }
 
     clickHandler(e){
@@ -31,18 +35,22 @@ export class Posts extends Component {
         this.current_page = this.current_page + 5
         const url = `https://serene-escarpment-90033.herokuapp.com/posts?limit=5&skip=${this.current_page}&sortBy=createdAt:desc`
         fetch(url)
-        .then((data)=>(data.json()))
-        .then((data) => {
-            if(data.length === 0){
-                this.setState({
-                    noMorePosts: true
-                })
+        .then((data)=> {
+            if(data.ok === true){
+                data.json()
+                .then((data) => {
+                        if(data.length === 0){
+                            this.setState({
+                                noMorePosts: true
+                            })
+                        }
+                        let newposts = this.state.posts.concat(data)
+                        this.setState({
+                            posts: newposts,
+                            loaded: true
+                        })
+                    })
             }
-            let newposts = this.state.posts.concat(data)
-            this.setState({
-                posts: newposts,
-                loaded: true
-            })
         })
     }
     button(){
