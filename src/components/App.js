@@ -6,14 +6,14 @@ import Cookies from 'universal-cookie';
 import Container from 'react-bootstrap/Container'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 
-import Posts from './Posts'
-import NavbarComponent from './NavbarComponent'
-import About from './About'
-import SignUpForm from './SignUpForm'
-import LoginForm from './LoginForm'
-import CreatePost from './CreatePost'
-import UserPage from './UserPage'
-import UserSettings from './UserSettings'
+import Posts from './posts/Posts'
+import NavbarComponent from './navbar/NavbarComponent'
+import About from './about/About'
+import SignUpForm from './signup/SignUpForm'
+import LoginForm from './login/LoginForm'
+import CreatePost from './create-post/CreatePost'
+import UserPage from './user/UserPage'
+import UserSettings from './user/UserSettings'
 
 class App extends Component {
 	constructor(){
